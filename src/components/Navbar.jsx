@@ -1,6 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const { user, logout } = useAuthContext();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    logout()
+      .then(() => navigate("/login"))
+      .catch((error) => console.log(error));
+  };
   const menus = (
     <>
       <li>
@@ -19,9 +29,15 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li>
-        <NavLink to={"/login"}>Login</NavLink>
-      </li>
+      {user ? (
+        <li>
+          <Link onClick={logoutHandler}>Log Out</Link>
+        </li>
+      ) : (
+        <li>
+          <NavLink to={"/login"}>Login</NavLink>
+        </li>
+      )}
     </>
   );
   return (
@@ -51,11 +67,11 @@ const Navbar = () => {
             {menus}
           </ul>
         </div>
-        <NavLink to={"/"}>
+        <Link to={"/"}>
           <h1 className="text-2xl font-extrabold text-primary uppercase tracking-widest">
             portal
           </h1>
-        </NavLink>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">{menus}</ul>
@@ -69,8 +85,11 @@ const Navbar = () => {
           >
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src={
+                  user && user?.photoURL
+                    ? user?.photoURL
+                    : "https://res.cloudinary.com/hasibmuhammad/image/upload/v1703178219/assignment-portal/avatar.webp"
+                }
               />
             </div>
           </div>
