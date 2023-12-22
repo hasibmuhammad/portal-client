@@ -60,6 +60,7 @@ const CreateAssignment = () => {
             difficulty,
             due,
             description,
+            status: "pending",
             createdBy: user.email,
           },
           { withCredentials: true }

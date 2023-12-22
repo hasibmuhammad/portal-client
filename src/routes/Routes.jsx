@@ -6,6 +6,9 @@ import Assignments from "../pages/Assignments/Assignments";
 import CreateAssignment from "../pages/Assignments/CreateAssignment";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import axios from "axios";
+import Details from "../pages/Assignments/Details";
+import Update from "../pages/Assignments/Update";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +22,23 @@ export const router = createBrowserRouter([
       {
         path: "/assignments",
         element: <Assignments />,
+        loader: () => axios.get(`http://localhost:8000/assignments`),
+      },
+      {
+        path: "/assignment/:id",
+        element: (
+          <PrivateRoute>
+            <Details />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoute>
+            <Update />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/create",
