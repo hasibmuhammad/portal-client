@@ -22,7 +22,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/create",
-        element: <CreateAssignment />,
+        element: (
+          <PrivateRoute>
+            <CreateAssignment />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",

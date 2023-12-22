@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Navbar = () => {
   const { user, logout } = useAuthContext();
@@ -8,7 +9,16 @@ const Navbar = () => {
 
   const logoutHandler = () => {
     logout()
-      .then(() => navigate("/login"))
+      .then(() => {
+        axios
+          .get("http://localhost:8000/logout", { withCredentials: true })
+          .then((res) => {
+            if (res.data.success) {
+              navigate("/login");
+            }
+          })
+          .catch((error) => console.log(error));
+      })
       .catch((error) => console.log(error));
   };
   const menus = (
@@ -23,9 +33,11 @@ const Navbar = () => {
             <li>
               <NavLink to={"/assignments"}>Assignments</NavLink>
             </li>
-            <li>
-              <NavLink to={"/create"}>Create</NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink to={"/create"}>Create</NavLink>
+              </li>
+            )}
           </ul>
         </details>
       </li>
@@ -93,23 +105,25 @@ const Navbar = () => {
               />
             </div>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
+          {user && (
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </div>

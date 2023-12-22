@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 const Login = () => {
   const [error, setError] = useState("");
   const { login } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const notifySuccess = (msg) => {
     toast.success(msg);
@@ -36,7 +38,23 @@ const Login = () => {
           if (res.user) {
             form.reset();
             notifySuccess("Logged in successfully!");
-            setTimeout(() => navigate("/"), 2000);
+
+            // set the jwt token
+            axios
+              .post(
+                `http://localhost:8000/jwt`,
+                { email: res.user?.email },
+                { withCredentials: true }
+              )
+              .then((res) => {
+                if (res.data.success) {
+                  setTimeout(
+                    () => navigate(location?.state ? location?.state : "/"),
+                    1000
+                  );
+                }
+              })
+              .catch((error) => console.log(error));
           }
         })
         .catch((error) => setError(error));
