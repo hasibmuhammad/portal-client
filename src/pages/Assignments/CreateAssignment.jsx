@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,7 +9,12 @@ import "react-datepicker/dist/react-datepicker.css";
 const CreateAssignment = () => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
+
+  const notifySuccess = (msg) => {
+    toast.success(msg);
+  };
 
   const handleCreateAssignment = (e) => {
     e.preventDefault();
@@ -65,7 +70,12 @@ const CreateAssignment = () => {
           },
           { withCredentials: true }
         )
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          if (res.data) {
+            notifySuccess("Assignment Created Successfully!");
+            setTimeout(() => navigate("/assignments", 1000));
+          }
+        })
         .catch((error) => console.log(error));
     }
   };
