@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import axios from "axios";
 import { ScrollRestoration, useParams } from "react-router-dom";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const Details = () => {
   const { id } = useParams();
   const { user } = useAuthContext();
   const [assignment, setAssignment] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     axios
@@ -21,7 +23,16 @@ const Details = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(assignment);
+  const handleSubmitAssignment = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const pdf = form.pdf.value;
+    const note = form.note.value;
+
+    console.log(pdf, note);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-10 lg:px-0 my-20">
       <div className="flex flex-col md:flex-row gap-10 justify-around">
@@ -50,8 +61,70 @@ const Details = () => {
             </div>
           </div>
           <h4 className="font-bold ">Marks: {assignment.marks}</h4>
-          <button className="btn btn-outline">Take Assignment</button>
+          <button
+            onClick={() => document.getElementById(assignment._id).showModal()}
+            className="btn btn-outline"
+          >
+            Take Assignment
+          </button>
         </div>
+
+        {/* Modal */}
+        <dialog
+          id={assignment._id}
+          className="modal modal-bottom sm:modal-middle"
+        >
+          <div className="modal-box">
+            <div className="flex justify-end">
+              <form method="dialog">
+                <button>
+                  <IoMdCloseCircle
+                    className="text-3xl text-error"
+                    type="button"
+                  />
+                </button>
+              </form>
+            </div>
+            <form className="card-body" onSubmit={handleSubmitAssignment}>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">PDF URL</span>
+                </label>
+                <input
+                  name="pdf"
+                  type="url"
+                  placeholder="pdf url"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Note</span>
+                </label>
+                <textarea
+                  name="note"
+                  className="textarea textarea-bordered textarea-md"
+                  placeholder="Special Note"
+                  required
+                ></textarea>
+              </div>
+              {error && (
+                <div>
+                  <p className="text-error">{error}</p>
+                </div>
+              )}
+              <div className="form-control mt-3">
+                <button
+                  type="submit"
+                  className="btn bg-primary text-white hover:bg-black"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>
       </div>
       <ScrollRestoration />
     </div>

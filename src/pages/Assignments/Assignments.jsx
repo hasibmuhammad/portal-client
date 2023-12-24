@@ -45,8 +45,6 @@ const Assignments = () => {
     setCurrentPage(0);
 
     if (difficulty === "") {
-      console.log("faka", data.length);
-
       setTotalPage(Math.ceil(data.length / itemsPerPage));
     } else {
       axios
