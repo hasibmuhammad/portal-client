@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader";
-import { ScrollRestoration } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const SubmittedAssignments = () => {
   const { user, loading } = useAuthContext();
   const [assignments, setAssignments] = useState([]);
+  const [error, setError] = useState("");
+
+  const notifySuccess = (msg) => toast.success(msg);
+  const notifyError = (msg) => toast.error(msg);
 
   useEffect(() => {
     axios
@@ -21,6 +26,15 @@ const SubmittedAssignments = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const handleMarking = (submittedBy, id) => {
+    if (submittedBy === user?.email) {
+      notifyError("Grading thyself is a crime!");
+      return;
+    } else {
+      document.getElementById(id).showModal();
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto my-20 px-10 lg:px-0 space-y-8">
@@ -45,16 +59,96 @@ const SubmittedAssignments = () => {
                 <div className="badge badge-sm badge-success text-white capitalize">
                   {assignment.status}
                 </div>
+                <div className="badge badge-sm badge-warning text-white capitalize font-bold">
+                  Marks: {assignment.marks}
+                </div>
+                <div className="badge badge-sm badge-accent text-white capitalize">
+                  Examinee: {assignment.examinee}
+                </div>
               </div>
 
-              <div className="card-actions my-5">
+              <div className="card-actions">
                 <button
+                  onClick={() =>
+                    handleMarking(assignment.submittedBy, assignment._id)
+                  }
                   type="button"
-                  className="btn btn-sm bg-primary text-white hover:bg-black"
+                  className="mt-2 btn btn-sm btn-primary text-white hover:bg-black"
                 >
-                  Update
+                  Give Marks
                 </button>
               </div>
+
+              {/* Modal */}
+              <dialog
+                id={assignment._id}
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <div className="modal-box">
+                  <div className="flex justify-end">
+                    <form method="dialog">
+                      <button>
+                        <IoMdCloseCircle
+                          className="text-3xl text-error"
+                          type="button"
+                        />
+                      </button>
+                    </form>
+                  </div>
+                  <div className="card-body pb-0">
+                    <Link
+                      className="text-primary font-semibold"
+                      to={assignment.pdf}
+                      target="_blank"
+                    >
+                      Click here to see the pdf
+                    </Link>
+                    <p>
+                      <span className="text-primary font-bold">Note:</span> "
+                      {assignment.note}"
+                    </p>
+                  </div>
+                  <form className="card-body">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">Marks</span>
+                      </label>
+                      <input
+                        name="marks"
+                        type="number"
+                        min={0}
+                        placeholder={`Enter Marks(out of ${assignment.marks})`}
+                        className="input input-bordered"
+                        required
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">Feedback</span>
+                      </label>
+                      <textarea
+                        name="feedback"
+                        className="textarea textarea-bordered textarea-md"
+                        placeholder="Feedback"
+                        required
+                      ></textarea>
+                    </div>
+                    {error && (
+                      <div>
+                        <p className="text-error">{error}</p>
+                      </div>
+                    )}
+                    <div className="form-control mt-3">
+                      <button
+                        type="submit"
+                        className="btn bg-primary text-white hover:bg-black"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </dialog>
             </div>
           </div>
         ))}
