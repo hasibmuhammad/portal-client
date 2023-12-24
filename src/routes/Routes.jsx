@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
       {
         path: "/assignments",
         element: <Assignments />,
-        // loader: () => axios.get(`http://localhost:8000/assignments`),
+        loader: () => axios.get(`http://localhost:8000/assignments`),
       },
       {
         path: "/assignment/:id",

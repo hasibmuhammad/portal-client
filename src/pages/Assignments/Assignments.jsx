@@ -13,7 +13,8 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const Assignments = () => {
-  // const { data } = useLoaderData();
+  const { data } = useLoaderData();
+
   const [assignments, setAssignments] = useState([]);
   const [difficulty, setDifficulty] = useState("");
   const { user, loading } = useAuthContext();
@@ -22,20 +23,40 @@ const Assignments = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
-  const totalPage = Math.ceil(assignments.length / itemsPerPage);
+  const [totalPage, setTotalPage] = useState(0);
   const pages = [...Array(totalPage).keys()];
 
   useEffect(() => {
-    // Get the data according to the difficulty
+    // Get the data according to the difficulty, currentpage and itemsperpage
     axios
       .get(
         `http://localhost:8000/assignmentsbydifficulty?difficulty=${difficulty}&page=${currentPage}&size=${itemsPerPage}`
       )
       .then((res) => {
         setAssignments(res.data);
+
+        window.scrollTo(0, 100);
       })
       .catch((error) => console.log(error));
   }, [difficulty, currentPage, itemsPerPage]);
+
+  // Get the data according to only difficulty
+  useEffect(() => {
+    setCurrentPage(0);
+
+    if (difficulty === "") {
+      console.log("faka", data.length);
+
+      setTotalPage(Math.ceil(data.length / itemsPerPage));
+    } else {
+      axios
+        .get(`http://localhost:8000/assignmentbydiff?difficulty=${difficulty}`)
+        .then((res) => {
+          setTotalPage(Math.ceil(res.data.length / itemsPerPage));
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [difficulty, itemsPerPage]);
 
   const notifyError = (msg) => {
     toast.error(msg);
@@ -185,7 +206,7 @@ const Assignments = () => {
                 currentPage === page ? "bg-primary text-white" : ""
               }`}
             >
-              {page + 1}
+              {page}
             </button>
           ))}
         </div>
