@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -82,7 +82,7 @@ const CreateAssignment = () => {
 
   return (
     <div className="px-10 lg:px-0 hero min-h-screen bg-base-100">
-      <div className="card shrink-0 w-full max-w-2xl mx-auto shadow-2xl bg-base-100 my-20 md:my-10">
+      <div className="card shrink-0 w-full max-w-2xl mx-auto shadow-2xl bg-base-100 md:my-10">
         <h3 className="font-bold text-2xl text-center mt-5 text-primary">
           Create Assignment
         </h3>
@@ -175,6 +175,7 @@ const CreateAssignment = () => {
         </form>
       </div>
       <Toaster />
+      <ScrollRestoration />
     </div>
   );
 };

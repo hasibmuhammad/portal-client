@@ -31,11 +31,21 @@ const Navbar = () => {
           <summary>Assignment</summary>
           <ul className="p-2">
             <li>
-              <NavLink to={"/assignments"}>Assignments</NavLink>
+              <NavLink to={"/assignments"}>All</NavLink>
             </li>
             {user && (
               <li>
                 <NavLink to={"/create"}>Create</NavLink>
+              </li>
+            )}
+            {user && (
+              <li>
+                <NavLink to={"/submitted"}>Submitted</NavLink>
+              </li>
+            )}
+            {user && (
+              <li>
+                <NavLink to={"/myassignments"}>My Assignemnts</NavLink>
               </li>
             )}
           </ul>
@@ -86,7 +96,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-2">{menus}</ul>
+        <ul className="menu menu-horizontal z-[1] px-1 gap-2">{menus}</ul>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">

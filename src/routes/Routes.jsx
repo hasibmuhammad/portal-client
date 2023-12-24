@@ -10,7 +10,8 @@ import axios from "axios";
 import Details from "../pages/Assignments/Details";
 import Update from "../pages/Assignments/Update";
 import NotFound from "../pages/NotFound/NotFound";
-import { useAuthContext } from "../hooks/useAuthContext";
+import SubmittedAssignments from "../pages/Assignments/SubmittedAssignments";
+import MyAssignments from "../pages/Assignments/MyAssignments";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,22 @@ export const router = createBrowserRouter([
         path: "/assignments",
         element: <Assignments />,
         loader: () => axios.get(`http://localhost:8000/assignments`),
+      },
+      {
+        path: "/submitted",
+        element: (
+          <PrivateRoute>
+            <SubmittedAssignments />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myassignments",
+        element: (
+          <PrivateRoute>
+            <MyAssignments />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/assignment/:id",

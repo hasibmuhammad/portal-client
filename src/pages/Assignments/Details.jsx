@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import axios from "axios";
-import { ScrollRestoration, useParams } from "react-router-dom";
+import { ScrollRestoration, useNavigate, useParams } from "react-router-dom";
 import { IoMdCloseCircle } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
 
 const Details = () => {
   const { id } = useParams();
   const { user } = useAuthContext();
   const [assignment, setAssignment] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const notifySuccess = (msg) => toast.success(msg);
 
   useEffect(() => {
     axios
@@ -30,7 +34,45 @@ const Details = () => {
     const pdf = form.pdf.value;
     const note = form.note.value;
 
-    console.log(pdf, note);
+    if (!pdf) {
+      setError("You must provide pdf url!");
+      return;
+    }
+    if (!note) {
+      setError("You must provide note!");
+      return;
+    }
+
+    if (!error) {
+      const submittedBy = user?.email;
+      const title = assignment.title;
+      const marks = assignment.marks;
+      const status = assignment.status;
+      const examinee = user?.displayName;
+
+      // Create submitted assignment
+      axios
+        .post(
+          `http://localhost:8000/createSubmitted?email=${user?.email}`,
+          {
+            title,
+            marks,
+            status,
+            examinee,
+            submittedBy,
+            pdf,
+            note,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res.data.insertedId) {
+            notifySuccess("Submitted Successfully!");
+            navigate("/submitted");
+          }
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -126,6 +168,7 @@ const Details = () => {
           </div>
         </dialog>
       </div>
+      <Toaster />
       <ScrollRestoration />
     </div>
   );

@@ -204,7 +204,7 @@ const Assignments = () => {
                 currentPage === page ? "bg-primary text-white" : ""
               }`}
             >
-              {page}
+              {page + 1}
             </button>
           ))}
         </div>
