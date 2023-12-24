@@ -9,11 +9,14 @@ import PrivateRoute from "./PrivateRoute";
 import axios from "axios";
 import Details from "../pages/Assignments/Details";
 import Update from "../pages/Assignments/Update";
+import NotFound from "../pages/NotFound/NotFound";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/",
@@ -22,7 +25,7 @@ export const router = createBrowserRouter([
       {
         path: "/assignments",
         element: <Assignments />,
-        loader: () => axios.get(`http://localhost:8000/assignments`),
+        // loader: () => axios.get(`http://localhost:8000/assignments`),
       },
       {
         path: "/assignment/:id",

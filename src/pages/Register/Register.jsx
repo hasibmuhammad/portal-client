@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -156,6 +156,7 @@ const Register = () => {
         </div>
       </div>
       <Toaster />
+      <ScrollRestoration />
     </div>
   );
 };

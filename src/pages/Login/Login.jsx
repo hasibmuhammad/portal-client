@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  ScrollRestoration,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
@@ -16,8 +21,9 @@ const Login = () => {
   };
 
   const handleLogin = (e) => {
-    e.preventDefault();
     setError("");
+
+    e.preventDefault();
 
     const form = e.target;
     const email = form.email.value;
@@ -32,7 +38,7 @@ const Login = () => {
       return;
     }
 
-    if (error.length === 0) {
+    if (!error) {
       login(email, password)
         .then((res) => {
           if (res.user) {
@@ -54,10 +60,10 @@ const Login = () => {
                   );
                 }
               })
-              .catch((error) => console.log(error));
+              .catch((error) => setError(error.message));
           }
         })
-        .catch((error) => setError(error));
+        .catch((error) => setError(error.message));
     }
   };
   return (
@@ -87,12 +93,12 @@ const Login = () => {
               className="input input-bordered"
               required
             />
-            <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
-                Forgot password?
-              </a>
-            </label>
           </div>
+          {error && (
+            <div>
+              <p className="text-error">{error}</p>
+            </div>
+          )}
           <div className="form-control mt-3">
             <button
               type="submit"
@@ -118,6 +124,7 @@ const Login = () => {
         </div>
       </div>
       <Toaster />
+      <ScrollRestoration />
     </div>
   );
 };
