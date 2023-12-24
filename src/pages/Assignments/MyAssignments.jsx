@@ -42,19 +42,32 @@ const MyAssignments = () => {
             <div className="card-body space-y-1">
               <h2 className="card-title">{assignment.title}</h2>
               <div className="flex gap-1 flex-wrap">
-                <div className="badge badge-sm badge-success text-white capitalize">
+                <div className="badge badge-sm badge-primary font-bold text-white capitalize">
                   {assignment.status}
                 </div>
+                <div className="badge badge-sm badge-accent font-bold text-white capitalize">
+                  Marks: {assignment.marks}
+                </div>
+                {/* <div className="badge badge-sm badge-info font-bold text-white">
+                  Graded By: {assignment?.gradedBy}
+                </div> */}
               </div>
-
-              <div className="card-actions my-5">
-                <button
-                  type="button"
-                  className="btn btn-sm bg-primary text-white hover:bg-black"
-                >
-                  Update
-                </button>
-              </div>
+              {assignment.status === "completed" && (
+                <div className="space-y-2">
+                  <p>
+                    <span className="text-primary font-semibold">
+                      Feedback:{" "}
+                    </span>
+                    {assignment?.feedback}
+                  </p>
+                  <p>
+                    <span className="text-primary font-semibold">
+                      You Got:{" "}
+                    </span>
+                    {assignment?.givenMark}/{assignment.marks}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         ))}

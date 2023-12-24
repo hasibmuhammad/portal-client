@@ -52,9 +52,7 @@ const Navbar = () => {
         </details>
       </li>
       {user ? (
-        <li>
-          <Link onClick={logoutHandler}>Log Out</Link>
-        </li>
+        ""
       ) : (
         <li>
           <NavLink to={"/login"}>Login</NavLink>
@@ -121,17 +119,16 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
+                <a className="justify-between capitalize">
+                  Hi, {user?.displayName}
                   <span className="badge">New</span>
                 </a>
               </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
+              {user && (
+                <li onClick={logoutHandler}>
+                  <a>Logout</a>
+                </li>
+              )}
             </ul>
           )}
         </div>

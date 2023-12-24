@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/Loader";
-import { Link, ScrollRestoration } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { IoMdCloseCircle } from "react-icons/io";
@@ -10,6 +10,7 @@ const SubmittedAssignments = () => {
   const { user, loading } = useAuthContext();
   const [assignments, setAssignments] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -34,6 +35,43 @@ const SubmittedAssignments = () => {
     } else {
       document.getElementById(id).showModal();
     }
+  };
+
+  const handleMarkSubmission = (e, id, marks) => {
+    e.preventDefault();
+
+    setError("");
+
+    const form = e.target;
+    const givenMark = form.marks.value;
+    const gradedBy = user?.email;
+    const feedback = form.feedback.value;
+
+    console.log(givenMark > marks);
+
+    if (parseInt(givenMark) > parseInt(marks)) {
+      setError("Marking should be out of 100");
+      return;
+    }
+
+    axios
+      .patch(
+        `http://localhost:8000/mark/${id}?email=${user?.email}`,
+        {
+          givenMark,
+          feedback,
+          gradedBy,
+          status: "completed",
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          notifySuccess("Graded Successfully!");
+          return navigate("/assignments");
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -101,14 +139,19 @@ const SubmittedAssignments = () => {
                       to={assignment.pdf}
                       target="_blank"
                     >
-                      Click here to see the pdf
+                      Click here to see the submission of pdf.
                     </Link>
                     <p>
                       <span className="text-primary font-bold">Note:</span> "
                       {assignment.note}"
                     </p>
                   </div>
-                  <form className="card-body">
+                  <form
+                    className="card-body"
+                    onSubmit={(e) =>
+                      handleMarkSubmission(e, assignment._id, assignment.marks)
+                    }
+                  >
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text">Marks</span>
