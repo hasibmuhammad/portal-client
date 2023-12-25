@@ -119,6 +119,36 @@ const Home = () => {
           </h1>
           <hr className="border border-b-4 border-primary rounded-lg w-24" />
         </div>
+
+        <div>
+          <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <div className="rounded-md border border-black/30 p-6">
+              <dt className="text-lg font-semibold leading-6 text-gray-900">
+                How do I get started?
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">
+                Getting started is so easy. Just visit assignment and create
+                assignment.
+              </dd>
+            </div>
+            <div className="rounded-md border border-black/30 p-6">
+              <dt className="text-lg font-semibold leading-6 text-gray-900">
+                Can i grade myself?
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">
+                No! Grading thyself is a crime. You shouldn't do that!
+              </dd>
+            </div>
+            <div className="rounded-md border border-black/30 p-6">
+              <dt className="text-lg font-semibold leading-6 text-gray-900">
+                Can anyone create account here?
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">
+                Yes, if you someone interested about the assignment evaluation!
+              </dd>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
