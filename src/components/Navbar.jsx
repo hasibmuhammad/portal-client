@@ -13,8 +13,8 @@ const Navbar = () => {
         axios
           .get("https://assignment-portal-backend.vercel.app/logout")
           .then((res) => {
-            if (res.data.success) {
-              navigate("/login");
+            if (res.data?.success) {
+              navigate("/assignments");
             }
           })
           .catch((error) => console.log(error));
@@ -126,7 +126,7 @@ const Navbar = () => {
               </li>
               {user && (
                 <li onClick={logoutHandler}>
-                  <a>Logout</a>
+                  <Link>Logout</Link>
                 </li>
               )}
             </ul>
