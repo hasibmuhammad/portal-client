@@ -113,7 +113,7 @@ const Home = () => {
       </div>
       {/* Faq section */}
       <div className="my-20">
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-3 mb-20">
           <h1 className="font-extrabold text-2xl text-primary uppercase">
             FAQ
           </h1>
