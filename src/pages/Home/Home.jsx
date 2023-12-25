@@ -19,10 +19,8 @@ const Home = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(featured);
-
   return (
-    <div className="max-w-7xl mx-auto px-10 lg:px-0">
+    <div className="max-w-7xl mx-auto px-10 lg:px-0 place-content-center">
       {/* Banner or Hero Section */}
       <div className="flex flex-col-reverse md:flex-row items-center gap-2 my-10 md:my-20">
         <div className="w-full md:w-1/2 space-y-4">
@@ -147,6 +145,45 @@ const Home = () => {
                 Yes, if you someone interested about the assignment evaluation!
               </dd>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonial Section */}
+      <div className="my-20">
+        <div className="flex flex-col items-center gap-3 mb-20">
+          <h1 className="font-extrabold text-2xl text-primary uppercase">
+            Feedback
+          </h1>
+          <hr className="border border-b-4 border-primary rounded-lg w-24" />
+        </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="p-4 rounded-md border ">
+            <p className="italic text-gray-500">
+              <span className="text-5xl">"</span>The assignment portal provided
+              a seamless experience. Timely feedback from experts enhanced my
+              understanding, making it a valuable tool for academic growth.
+            </p>
+            <br />
+            <p className="italic text-gray-500">-Maria Kate, Photographer</p>
+          </div>
+          <div className="p-4 rounded-md border ">
+            <p className="italic text-gray-500">
+              <span className="text-5xl">"</span>The platform's efficiency and
+              expert feedback significantly contributed to my learning. It's a
+              valuable resource for students seeking improvement.
+            </p>
+            <br />
+            <p className="italic text-gray-500">-John Doe, Web Developer</p>
+          </div>
+          <div className="p-4 rounded-md border ">
+            <p className="italic text-gray-500">
+              <span className="text-5xl">"</span>The assignment portal's
+              personalized feedback and collaborative environment positively
+              impacted my academic performance. Highly recommended!
+            </p>
+            <br />
+            <p className="italic text-gray-500">-Anna Deynah, UX Designer</p>
           </div>
         </div>
       </div>
