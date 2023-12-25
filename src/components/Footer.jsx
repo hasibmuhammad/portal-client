@@ -40,7 +40,10 @@ const Footer = () => {
           </div>
         </nav>
         <aside>
-          <p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+          <p>
+            Copyright © {new Date().getFullYear()} - All right reserved by
+            PORTAL
+          </p>
         </aside>
       </footer>
     </div>
