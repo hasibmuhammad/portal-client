@@ -25,9 +25,12 @@ const Update = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/assignment/${id}?email=${user?.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://assignment-portal-backend.vercel.app/assignment/${id}?email=${user?.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         if (res.data?.success) {
           setAssignment(res.data?.assignment);
@@ -85,7 +88,7 @@ const Update = () => {
       // update the assignment
       axios
         .put(
-          `http://localhost:8000/update/${id}?email=${user.email}`,
+          `https://assignment-portal-backend.vercel.app/update/${id}?email=${user.email}`,
           {
             title,
             photo,

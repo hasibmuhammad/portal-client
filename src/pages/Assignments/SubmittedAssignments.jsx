@@ -18,9 +18,12 @@ const SubmittedAssignments = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/submitted?email=${user?.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://assignment-portal-backend.vercel.app/submitted?email=${user?.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         if (res.data) {
           setAssignments(res.data);
@@ -57,7 +60,7 @@ const SubmittedAssignments = () => {
 
     axios
       .patch(
-        `http://localhost:8000/mark/${id}?email=${user?.email}`,
+        `https://assignment-portal-backend.vercel.app/mark/${id}?email=${user?.email}`,
         {
           givenMark,
           feedback,

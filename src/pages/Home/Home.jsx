@@ -10,7 +10,7 @@ const Home = () => {
   const { user, loading } = useAuthContext();
   useEffect(() => {
     axios
-      .get("http://localhost:8000/featured")
+      .get("https://assignment-portal-backend.vercel.app/featured")
       .then((res) => {
         if (res.data) {
           setFeatured(res.data);

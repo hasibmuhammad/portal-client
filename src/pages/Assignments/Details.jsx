@@ -17,9 +17,12 @@ const Details = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/assignment/${id}?email=${user.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://assignment-portal-backend.vercel.app/assignment/${id}?email=${user.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setAssignment(res.data.assignment);
@@ -54,7 +57,7 @@ const Details = () => {
       // Create submitted assignment
       axios
         .post(
-          `http://localhost:8000/createSubmitted?email=${user?.email}`,
+          `https://assignment-portal-backend.vercel.app/createSubmitted?email=${user?.email}`,
           {
             title,
             marks,

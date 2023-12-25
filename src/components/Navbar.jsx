@@ -11,7 +11,9 @@ const Navbar = () => {
     logout()
       .then(() => {
         axios
-          .get("http://localhost:8000/logout", { withCredentials: true })
+          .get("https://assignment-portal-backend.vercel.app/logout", {
+            withCredentials: true,
+          })
           .then((res) => {
             if (res.data.success) {
               navigate("/login");

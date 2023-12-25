@@ -58,7 +58,7 @@ const CreateAssignment = () => {
       // create the assignment
       axios
         .post(
-          `http://localhost:8000/create?email=${user.email}`,
+          `https://assignment-portal-backend.vercel.app/create?email=${user.email}`,
           {
             title,
             photo,

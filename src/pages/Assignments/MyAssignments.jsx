@@ -12,9 +12,12 @@ const MyAssignments = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/myassignments?email=${user?.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://assignment-portal-backend.vercel.app/myassignments?email=${user?.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         if (res.data) {
           setAssignments(res.data);

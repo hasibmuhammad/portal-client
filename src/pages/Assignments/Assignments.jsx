@@ -32,7 +32,7 @@ const Assignments = () => {
     // Get the data according to the difficulty, currentpage and itemsperpage
     axios
       .get(
-        `http://localhost:8000/assignmentsbydifficulty?difficulty=${difficulty}&page=${currentPage}&size=${itemsPerPage}`
+        `https://assignment-portal-backend.vercel.app/assignmentsbydifficulty?difficulty=${difficulty}&page=${currentPage}&size=${itemsPerPage}`
       )
       .then((res) => {
         setAssignments(res.data);
@@ -50,7 +50,9 @@ const Assignments = () => {
       setTotalPage(Math.ceil(data.length / itemsPerPage));
     } else {
       axios
-        .get(`http://localhost:8000/assignmentbydiff?difficulty=${difficulty}`)
+        .get(
+          `https://assignment-portal-backend.vercel.app/assignmentbydiff?difficulty=${difficulty}`
+        )
         .then((res) => {
           setTotalPage(Math.ceil(res.data.length / itemsPerPage));
         })
@@ -74,9 +76,12 @@ const Assignments = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8000/delete/${id}?email=${user?.email}`, {
-            withCredentials: true,
-          })
+          .delete(
+            `https://assignment-portal-backend.vercel.app/delete/${id}?email=${user?.email}`,
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             if (res.data.deletedCount > 0) {
               Swal.fire({

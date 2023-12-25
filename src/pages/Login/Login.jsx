@@ -49,7 +49,7 @@ const Login = () => {
             // set the jwt token
             axios
               .post(
-                `http://localhost:8000/jwt`,
+                `https://assignment-portal-backend.vercel.app/jwt`,
                 { email: res.user?.email },
                 { withCredentials: true }
               )
@@ -78,7 +78,7 @@ const Login = () => {
           // set the jwt token
           axios
             .post(
-              `http://localhost:8000/jwt`,
+              `https://assignment-portal-backend.vercel.app/jwt`,
               { email: res.user?.email },
               { withCredentials: true }
             )
