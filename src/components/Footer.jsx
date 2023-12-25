@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <div className="mt-40">
@@ -42,7 +44,14 @@ const Footer = () => {
         <aside>
           <p>
             Copyright © {new Date().getFullYear()} - All right reserved by
-            PORTAL
+            <Link
+              target="_blank"
+              className="text-primary font-bold"
+              to={"https://github.com/hasibmuhammad"}
+            >
+              {"  "}
+              PORTAL
+            </Link>
           </p>
         </aside>
       </footer>

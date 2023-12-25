@@ -161,7 +161,7 @@ const Home = () => {
 
         <div>
           <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <div className="rounded-md border border-black/30 p-6">
+            <div className="rounded-md border p-6">
               <dt className="text-lg font-semibold leading-6 text-gray-900">
                 How do I get started?
               </dt>
@@ -170,7 +170,7 @@ const Home = () => {
                 assignment.
               </dd>
             </div>
-            <div className="rounded-md border border-black/30 p-6">
+            <div className="rounded-md border p-6">
               <dt className="text-lg font-semibold leading-6 text-gray-900">
                 Can i grade myself?
               </dt>
@@ -178,7 +178,7 @@ const Home = () => {
                 No! Grading thyself is a crime. You shouldn't do that!
               </dd>
             </div>
-            <div className="rounded-md border border-black/30 p-6">
+            <div className="rounded-md border p-6">
               <dt className="text-lg font-semibold leading-6 text-gray-900">
                 Can anyone create account here?
               </dt>

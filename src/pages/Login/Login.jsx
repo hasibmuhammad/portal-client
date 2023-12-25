@@ -12,7 +12,7 @@ import axios from "axios";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { login } = useAuthContext();
+  const { login, loginWithGoogle } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -66,6 +66,35 @@ const Login = () => {
         .catch((error) => setError(error.message));
     }
   };
+
+  // Login with google
+  const loginWithGoogleHandler = () => {
+    loginWithGoogle()
+      .then((res) => {
+        if (res.user) {
+          notifySuccess("Logged in successfully!");
+
+          // set the jwt token
+          axios
+            .post(
+              `http://localhost:8000/jwt`,
+              { email: res.user?.email },
+              { withCredentials: true }
+            )
+            .then((res) => {
+              if (res.data.success) {
+                setTimeout(
+                  () => navigate(location?.state ? location?.state : "/"),
+                  1000
+                );
+              }
+            })
+            .catch((error) => setError(error.message));
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="px-10 lg:px-0 hero min-h-screen bg-base-100">
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -108,7 +137,11 @@ const Login = () => {
             </button>
           </div>
           <div className="form-control">
-            <button type="button" className="btn btn-outline border-primary">
+            <button
+              onClick={loginWithGoogleHandler}
+              type="button"
+              className="btn btn-outline border-primary"
+            >
               <FcGoogle className="text-xl" />
               Continue With Google
             </button>
