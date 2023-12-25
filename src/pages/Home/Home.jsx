@@ -25,8 +25,9 @@ const Home = () => {
       <div className="flex flex-col-reverse md:flex-row items-center gap-2 my-10 md:my-20">
         <div className="w-full md:w-1/2 space-y-4">
           <h1 className="font-bold text-5xl leading-snug">
-            Submit Assignment
-            <br /> And Get Evaluation <br /> From Expert.
+            Submit <span className="text-primary">Assignment</span>
+            <br /> And Get Evaluation <br /> From{" "}
+            <span className="text-primary underline">Expert.</span>
           </h1>
           <p className="text-pretty text-gray-500">
             Welcome to our Assignment Portal - Bridging Knowledge and Expertise!
@@ -109,45 +110,6 @@ const Home = () => {
           </Link>
         </div>
       </div>
-      {/* Faq section */}
-      <div className="my-20">
-        <div className="flex flex-col items-center gap-3 mb-20">
-          <h1 className="font-extrabold text-2xl text-primary uppercase">
-            FAQ
-          </h1>
-          <hr className="border border-b-4 border-primary rounded-lg w-24" />
-        </div>
-
-        <div>
-          <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <div className="rounded-md border border-black/30 p-6">
-              <dt className="text-lg font-semibold leading-6 text-gray-900">
-                How do I get started?
-              </dt>
-              <dd className="mt-2 text-sm text-gray-500">
-                Getting started is so easy. Just visit assignment and create
-                assignment.
-              </dd>
-            </div>
-            <div className="rounded-md border border-black/30 p-6">
-              <dt className="text-lg font-semibold leading-6 text-gray-900">
-                Can i grade myself?
-              </dt>
-              <dd className="mt-2 text-sm text-gray-500">
-                No! Grading thyself is a crime. You shouldn't do that!
-              </dd>
-            </div>
-            <div className="rounded-md border border-black/30 p-6">
-              <dt className="text-lg font-semibold leading-6 text-gray-900">
-                Can anyone create account here?
-              </dt>
-              <dd className="mt-2 text-sm text-gray-500">
-                Yes, if you someone interested about the assignment evaluation!
-              </dd>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Testimonial Section */}
       <div className="my-20">
@@ -184,6 +146,46 @@ const Home = () => {
             </p>
             <br />
             <p className="italic text-gray-500">-Anna Deynah, UX Designer</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Faq section */}
+      <div className="my-20">
+        <div className="flex flex-col items-center gap-3 mb-20">
+          <h1 className="font-extrabold text-2xl text-primary uppercase">
+            FAQ
+          </h1>
+          <hr className="border border-b-4 border-primary rounded-lg w-24" />
+        </div>
+
+        <div>
+          <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <div className="rounded-md border border-black/30 p-6">
+              <dt className="text-lg font-semibold leading-6 text-gray-900">
+                How do I get started?
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">
+                Getting started is so easy. Just visit assignment and create
+                assignment.
+              </dd>
+            </div>
+            <div className="rounded-md border border-black/30 p-6">
+              <dt className="text-lg font-semibold leading-6 text-gray-900">
+                Can i grade myself?
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">
+                No! Grading thyself is a crime. You shouldn't do that!
+              </dd>
+            </div>
+            <div className="rounded-md border border-black/30 p-6">
+              <dt className="text-lg font-semibold leading-6 text-gray-900">
+                Can anyone create account here?
+              </dt>
+              <dd className="mt-2 text-sm text-gray-500">
+                Yes, if you someone interested about the assignment evaluation!
+              </dd>
+            </div>
           </div>
         </div>
       </div>
