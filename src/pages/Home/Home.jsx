@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Loader from "../../components/Loader";
-
+import { motion } from "framer-motion";
 const Home = () => {
   const [featured, setFeatured] = useState([]);
   const { user, loading } = useAuthContext();
@@ -23,7 +23,12 @@ const Home = () => {
     <div className="max-w-7xl mx-auto px-10 lg:px-0 place-content-center">
       {/* Banner or Hero Section */}
       <div className="flex flex-col-reverse md:flex-row items-center gap-2 my-10 md:my-20">
-        <div className="w-full md:w-1/2 space-y-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="w-full md:w-1/2 space-y-4"
+        >
           <h1 className="font-bold text-5xl leading-snug">
             Submit <span className="text-primary">Assignment</span>
             <br /> And Get Evaluation <br /> From{" "}
@@ -41,25 +46,40 @@ const Home = () => {
               Visit Assignments
             </button>
           </Link>
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <img className="w-full" src={image1} alt="" />
-        </div>
+        </motion.div>
       </div>
 
       {/* Featured Section */}
       <div>
-        <div className="flex flex-col items-center gap-3">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center gap-3"
+        >
           <h1 className="font-extrabold text-2xl text-primary uppercase">
             Featured
           </h1>
           <hr className="border border-b-4 border-primary rounded-lg w-24" />
-        </div>
+        </motion.div>
 
         {loading && <Loader />}
         <div className="my-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {featured.map((assignment) => (
-            <div key={assignment._id} className="card bg-base-100 shadow-xl">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              key={assignment._id}
+              className="card bg-base-100 shadow-xl"
+            >
               <figure>
                 <img
                   className="w-full h-52 object-cover"
@@ -99,28 +119,43 @@ const Home = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="text-center">
           <Link to={"/assignments"}>
-            <button className="btn btn-outline border-primary text-primary">
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="btn btn-outline border-primary text-primary"
+            >
               Browse More
-            </button>
+            </motion.button>
           </Link>
         </div>
       </div>
 
       {/* Testimonial Section */}
       <div className="my-20">
-        <div className="flex flex-col items-center gap-3 mb-20">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center gap-3 mb-20"
+        >
           <h1 className="font-extrabold text-2xl text-primary uppercase">
             Feedback
           </h1>
           <hr className="border border-b-4 border-primary rounded-lg w-24" />
-        </div>
+        </motion.div>
         <div className="flex flex-col md:flex-row gap-4">
-          <div className="p-4 rounded-md border ">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="p-4 rounded-md border "
+          >
             <p className="italic text-gray-500">
               <span className="text-5xl">"</span>The assignment portal provided
               a seamless experience. Timely feedback from experts enhanced my
@@ -128,8 +163,13 @@ const Home = () => {
             </p>
             <br />
             <p className="italic text-gray-500">-Maria Kate, Photographer</p>
-          </div>
-          <div className="p-4 rounded-md border ">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="p-4 rounded-md border "
+          >
             <p className="italic text-gray-500">
               <span className="text-5xl">"</span>The platform's efficiency and
               expert feedback significantly contributed to my learning. It's a
@@ -137,8 +177,13 @@ const Home = () => {
             </p>
             <br />
             <p className="italic text-gray-500">-John Doe, Web Developer</p>
-          </div>
-          <div className="p-4 rounded-md border ">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="p-4 rounded-md border "
+          >
             <p className="italic text-gray-500">
               <span className="text-5xl">"</span>The assignment portal's
               personalized feedback and collaborative environment positively
@@ -146,22 +191,32 @@ const Home = () => {
             </p>
             <br />
             <p className="italic text-gray-500">-Anna Deynah, UX Designer</p>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Faq section */}
       <div className="my-20">
-        <div className="flex flex-col items-center gap-3 mb-20">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center gap-3 mb-20"
+        >
           <h1 className="font-extrabold text-2xl text-primary uppercase">
             FAQ
           </h1>
           <hr className="border border-b-4 border-primary rounded-lg w-24" />
-        </div>
+        </motion.div>
 
         <div>
           <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <div className="rounded-md border p-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-md border p-6"
+            >
               <dt className="text-lg font-semibold leading-6 text-gray-900">
                 How do I get started?
               </dt>
@@ -169,23 +224,33 @@ const Home = () => {
                 Getting started is so easy. Just visit assignment and create
                 assignment.
               </dd>
-            </div>
-            <div className="rounded-md border p-6">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-md border p-6"
+            >
               <dt className="text-lg font-semibold leading-6 text-gray-900">
                 Can i grade myself?
               </dt>
               <dd className="mt-2 text-sm text-gray-500">
                 No! Grading thyself is a crime. You shouldn't do that!
               </dd>
-            </div>
-            <div className="rounded-md border p-6">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-md border p-6"
+            >
               <dt className="text-lg font-semibold leading-6 text-gray-900">
                 Can anyone create account here?
               </dt>
               <dd className="mt-2 text-sm text-gray-500">
                 Yes, if you someone interested about the assignment evaluation!
               </dd>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

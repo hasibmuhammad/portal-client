@@ -12,6 +12,8 @@ import Loader from "../../components/Loader";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 
+import { motion } from "framer-motion";
+
 const Assignments = () => {
   const { data } = useLoaderData();
 
@@ -106,10 +108,20 @@ const Assignments = () => {
   return (
     <div className="max-w-7xl mx-auto my-20 px-10 lg:px-0 space-y-8">
       <div className="flex flex-col items-center gap-3">
-        <h1 className="font-extrabold text-2xl text-primary uppercase">
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="font-extrabold text-2xl text-primary uppercase"
+        >
           Assignments
-        </h1>
-        <hr className="border border-b-4 border-primary rounded-lg w-24" />
+        </motion.h1>
+        <motion.hr
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="border border-b-4 border-primary rounded-lg w-24"
+        />
       </div>
       <div className="flex md:justify-end">
         <select
@@ -128,100 +140,115 @@ const Assignments = () => {
         </div>
       )}
       {loading && <Loader />}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {assignments.map((assignment) => (
-          <div key={assignment._id} className="card bg-base-100 shadow-xl">
-            <figure>
-              <img
-                className="w-full h-52 object-cover"
-                src={assignment.photo}
-                alt={assignment.title}
-              />
-            </figure>
-            <div className="card-body space-y-1">
-              <h2 className="card-title">{assignment.title}</h2>
-              <div className="flex gap-1 flex-wrap">
-                <div className="badge badge-sm badge-secondary capitalize">
-                  {assignment.difficulty}
+      {!loading && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {assignments.map((assignment) => (
+            <motion.div
+              key={assignment._id}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="card bg-base-100 shadow-xl"
+            >
+              <figure>
+                <img
+                  className="w-full h-52 object-cover"
+                  src={assignment.photo}
+                  alt={assignment.title}
+                />
+              </figure>
+              <div className="card-body space-y-1">
+                <h2 className="card-title">{assignment.title}</h2>
+                <div className="flex gap-1 flex-wrap">
+                  <div className="badge badge-sm badge-secondary capitalize">
+                    {assignment.difficulty}
+                  </div>
+                  <div className="badge badge-sm badge-success text-white capitalize">
+                    {assignment.status}
+                  </div>
                 </div>
-                <div className="badge badge-sm badge-success text-white capitalize">
-                  {assignment.status}
-                </div>
-              </div>
-              <p>{assignment.description.slice(0, 80)}...</p>
+                <p>{assignment.description.slice(0, 80)}...</p>
 
-              <div className="flex flex-col gap-1">
-                <small className="badge  badge-outline text-primary">
-                  Due: {assignment.due}
-                </small>
-                {user && (
+                <div className="flex flex-col gap-1">
                   <small className="badge  badge-outline text-primary">
-                    Author:{" "}
-                    {assignment.createdBy === user?.email ? "You" : "Other"}
+                    Due: {assignment.due}
                   </small>
-                )}
-              </div>
+                  {user && (
+                    <small className="badge  badge-outline text-primary">
+                      Author:{" "}
+                      {assignment.createdBy === user?.email ? "You" : "Other"}
+                    </small>
+                  )}
+                </div>
 
-              <div className="card-actions my-5">
-                <Link to={`/assignment/${assignment._id}`}>
-                  <button className="btn btn-sm btn-outline border border-primary text-primary">
-                    View
-                  </button>
-                </Link>
-                {user && user?.email === assignment.createdBy && (
-                  <Link to={`/update/${assignment._id}`}>
-                    <button
-                      type="button"
-                      className="btn btn-sm bg-primary text-white hover:bg-black"
-                    >
-                      Update
+                <div className="card-actions my-5">
+                  <Link to={`/assignment/${assignment._id}`}>
+                    <button className="btn btn-sm btn-outline border border-primary text-primary">
+                      View
                     </button>
                   </Link>
-                )}
-                {user && user?.email === assignment.createdBy && (
-                  <button
-                    onClick={() => handleDelete(assignment._id)}
-                    type="button"
-                    className="btn btn-sm btn-error border-none text-white hover:bg-black"
-                  >
-                    Delete
-                  </button>
-                )}
+                  {user && user?.email === assignment.createdBy && (
+                    <Link to={`/update/${assignment._id}`}>
+                      <button
+                        type="button"
+                        className="btn btn-sm bg-primary text-white hover:bg-black"
+                      >
+                        Update
+                      </button>
+                    </Link>
+                  )}
+                  {user && user?.email === assignment.createdBy && (
+                    <button
+                      onClick={() => handleDelete(assignment._id)}
+                      type="button"
+                      className="btn btn-sm btn-error border-none text-white hover:bg-black"
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="text-center">
-        <div className="join">
-          {pages.map((page) => (
-            <button
-              onClick={() => setCurrentPage(page)}
-              key={page}
-              className={`join-item btn ${
-                currentPage === page ? "bg-primary text-white" : ""
-              }`}
-            >
-              {page + 1}
-            </button>
+            </motion.div>
           ))}
         </div>
-        {assignments.length !== 0 && (
-          <select
-            onChange={(e) => {
-              setItemsPerPage(e.target.value);
-              setCurrentPage(0);
-            }}
-            className=" py-3 rounded-md outline-none"
-          >
-            <option value="3">3</option>
-            <option value="6">6</option>
-            <option value="9">9</option>
-          </select>
-        )}
-      </div>
+      )}
+
+      {/* Pagination */}
+      {!loading && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <div className="join">
+            {pages.map((page) => (
+              <button
+                onClick={() => setCurrentPage(page)}
+                key={page}
+                className={`join-item btn ${
+                  currentPage === page ? "bg-primary text-white" : ""
+                }`}
+              >
+                {page + 1}
+              </button>
+            ))}
+          </div>
+          {assignments.length !== 0 && (
+            <select
+              onChange={(e) => {
+                setItemsPerPage(e.target.value);
+                setCurrentPage(0);
+              }}
+              className=" py-3 rounded-md outline-none"
+            >
+              <option value="3">3</option>
+              <option value="6">6</option>
+              <option value="9">9</option>
+            </select>
+          )}
+        </motion.div>
+      )}
 
       <Toaster />
       <ScrollRestoration />

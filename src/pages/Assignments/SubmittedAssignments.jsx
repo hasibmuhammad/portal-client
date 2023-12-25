@@ -5,6 +5,7 @@ import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { IoMdCloseCircle } from "react-icons/io";
+import { motion } from "framer-motion";
 
 const SubmittedAssignments = () => {
   const { user, loading } = useAuthContext();
@@ -76,13 +77,18 @@ const SubmittedAssignments = () => {
 
   return (
     <div className="max-w-7xl mx-auto my-20 px-10 lg:px-0 space-y-8">
-      <div className="flex flex-col items-center gap-3">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col items-center gap-3"
+      >
         <h1 className="font-extrabold text-2xl text-primary uppercase">
           Submitted Assignments
         </h1>
         <hr className="border border-b-4 border-primary rounded-lg w-24" />
-      </div>
-      {assignments.length === 0 && (
+      </motion.div>
+      {assignments?.length === 0 && (
         <div className="flex justify-center items-center">
           <p className="mt-24">No Assignments Available!</p>
         </div>
@@ -90,7 +96,13 @@ const SubmittedAssignments = () => {
       {loading && <Loader />}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {assignments.map((assignment) => (
-          <div key={assignment._id} className="card bg-base-100 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            key={assignment._id}
+            className="card bg-base-100 shadow-xl"
+          >
             <div className="card-body space-y-1">
               <h2 className="card-title">{assignment.title}</h2>
               <div className="flex gap-1 flex-wrap">
@@ -193,7 +205,7 @@ const SubmittedAssignments = () => {
                 </div>
               </dialog>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
       <Toaster />

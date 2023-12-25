@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const Update = () => {
   const { id } = useParams();
@@ -112,7 +113,12 @@ const Update = () => {
   };
 
   return (
-    <div className="px-10 lg:px-0 hero min-h-screen bg-base-100">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="px-10 lg:px-0 hero min-h-screen bg-base-100"
+    >
       <div className="card shrink-0 w-full max-w-2xl mx-auto shadow-2xl bg-base-100 my-20 md:my-10">
         <h3 className="font-bold text-2xl text-center mt-5 text-primary">
           Update Assignment
@@ -214,7 +220,7 @@ const Update = () => {
       </div>
       <Toaster />
       <ScrollRestoration />
-    </div>
+    </motion.div>
   );
 };
 export default Update;

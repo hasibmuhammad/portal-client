@@ -9,6 +9,7 @@ import {
 import { useAuthContext } from "../../hooks/useAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -96,7 +97,12 @@ const Login = () => {
   };
 
   return (
-    <div className="px-10 lg:px-0 hero min-h-screen bg-base-100">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="px-10 lg:px-0 hero min-h-screen bg-base-100"
+    >
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <form className="card-body" onSubmit={handleLogin}>
           <div className="form-control">
@@ -158,7 +164,7 @@ const Login = () => {
       </div>
       <Toaster />
       <ScrollRestoration />
-    </div>
+    </motion.div>
   );
 };
 

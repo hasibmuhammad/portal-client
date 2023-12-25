@@ -4,6 +4,7 @@ import axios from "axios";
 import { ScrollRestoration, useNavigate, useParams } from "react-router-dom";
 import { IoMdCloseCircle } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Details = () => {
   const { id } = useParams();
@@ -78,14 +79,24 @@ const Details = () => {
   return (
     <div className="max-w-7xl mx-auto px-10 lg:px-0 my-20">
       <div className="flex flex-col md:flex-row gap-10 justify-around">
-        <div className="w-full lg:w-2/3 mt-10 rounded-md">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="w-full lg:w-2/3 mt-10 rounded-md"
+        >
           <img
             className="w-full h-96 object-cover rounded-md"
             src={assignment.photo}
             alt=""
           />
-        </div>
-        <div className="mt-10 space-y-7">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="mt-10 space-y-7"
+        >
           <h1 className="font-extrabold text-5xl">{assignment.title}</h1>
           <p>{assignment.description}</p>
           <div className="flex flex-wrap gap-4">
@@ -109,7 +120,7 @@ const Details = () => {
           >
             Take Assignment
           </button>
-        </div>
+        </motion.div>
 
         {/* Modal */}
         <dialog
